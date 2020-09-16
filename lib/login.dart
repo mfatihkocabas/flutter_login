@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:pathp1/register.dart';
 import 'homepage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'SharedPre.dart';
+import 'register.dart';
 
-
-var emailController = TextEditingController();
-var pwdController = TextEditingController();
+var mailController = TextEditingController();
+var passController = TextEditingController();
 
 class Login extends StatelessWidget{
   @override
@@ -33,7 +34,7 @@ class Login extends StatelessWidget{
                       height: 15,
                     ),
                     TextField(
-                        controller: emailController,
+                        controller: mailController,
                         obscureText: false,
                         decoration: InputDecoration(
                             border: InputBorder.none,
@@ -55,7 +56,7 @@ class Login extends StatelessWidget{
                       height: 10,
                     ),
                     TextField(
-                        controller: pwdController,
+                        controller: passController,
                         obscureText: true,
                         decoration: InputDecoration(
                             border: InputBorder.none,
@@ -67,11 +68,13 @@ class Login extends StatelessWidget{
                 color: Colors.blue,
                 child: Text('Login'),
                 onPressed: (){
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) =>
-                          Homepage()));
-
+                  SharedPrefs.saveMail(mailController.text);
+                  SharedPrefs.savePassword(passController.text);
+                  if(emailController.text==mailController.text && passwordController.text==passController.text) {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => Homepage()));
+                  }
 
                   // Navigator.push(context, MaterialPageRoute(builder: (context){
                   //  return Homepage();

@@ -6,7 +6,7 @@ import 'SharedPre.dart';
 
 SharedPreferences localStorage;
 
-var mailController = TextEditingController();
+var emailController = TextEditingController();
 var passwordController = TextEditingController();
 var nameController = TextEditingController();
 var surnameController =TextEditingController();
@@ -36,8 +36,6 @@ class Register extends StatelessWidget{
                     children: <Widget>[
                       Text(
                         "Name:",
-                        style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                       ),
                       SizedBox(
                         height: 10,
@@ -47,7 +45,6 @@ class Register extends StatelessWidget{
                           obscureText: false,
                           decoration: InputDecoration(
                               border: InputBorder.none,
-                              fillColor: Color(0xfff3f3f4),
                               filled: true))
                     ],
                   ),
@@ -59,8 +56,6 @@ class Register extends StatelessWidget{
                     children: <Widget>[
                       Text(
                         "Surname",
-                        style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                       ),
                       SizedBox(
                         height: 10,
@@ -70,7 +65,6 @@ class Register extends StatelessWidget{
                           obscureText: false,
                           decoration: InputDecoration(
                               border: InputBorder.none,
-                              fillColor: Color(0xfff3f3f4),
                               filled: true))
                     ],
                   ),
@@ -82,8 +76,6 @@ class Register extends StatelessWidget{
                     children: <Widget>[
                       Text(
                         "Email:",
-                        style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                       ),
                       SizedBox(
                         height: 10,
@@ -93,7 +85,6 @@ class Register extends StatelessWidget{
                           obscureText: false,
                           decoration: InputDecoration(
                               border: InputBorder.none,
-                              fillColor: Color(0xfff3f3f4),
                               filled: true))
                     ],
                   ),
@@ -105,18 +96,15 @@ class Register extends StatelessWidget{
                     children: <Widget>[
                       Text(
                         "Password :",
-                        style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                       ),
                       SizedBox(
                         height: 10,
                       ),
                       TextField(
-                         // controller: pwdController,
+                          controller: passwordController,
                           obscureText: true,
                           decoration: InputDecoration(
                               border: InputBorder.none,
-                              fillColor: Color(0xfff3f3f4),
                               filled: true))
                     ],
                   ),
@@ -126,7 +114,7 @@ class Register extends StatelessWidget{
                     color:Colors.red,
                     child: Text('Register'),
                     onPressed:(){
-                      SharedPrefs.saveMail(mailController.text);
+                      SharedPrefs.saveMail(emailController.text);
                       SharedPrefs.savePassword(passwordController.text);
                       SharedPrefs.saveName(nameController.text);
                       SharedPrefs.saveSurName(surnameController.text);

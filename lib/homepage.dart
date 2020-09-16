@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 
 class Homepage extends StatelessWidget {
@@ -13,7 +12,15 @@ class Homepage extends StatelessWidget {
         backgroundColor: Colors.blue,
         title: Text('Homepage'),
       ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Center(
+          child: Container(
 
+
+          ),
+        ),
+      ),
     );
   }
 }
