@@ -11,6 +11,16 @@ var nameController = TextEditingController();
 var surnameController = TextEditingController();
 
 class Register extends StatelessWidget {
+
+ final _fKey = GlobalKey<FormState>();
+ void _sbt() {
+    final isValid = _fKey.currentState.validate();
+    if (!isValid) {
+      return _sbt();
+    }
+    _fKey.currentState.save();
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -26,108 +36,119 @@ class Register extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 Container(
-                  margin: EdgeInsets.symmetric(vertical: 10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        "Name:",
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      TextField(
-                          controller: nameController,
-                          obscureText: false,
-                          decoration: InputDecoration(
-                              border: InputBorder.none, filled: true))
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.symmetric(vertical: 10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        "Surname",
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      TextField(
-                          controller: surnameController,
-                          obscureText: false,
-                          decoration: InputDecoration(
-                              border: InputBorder.none, filled: true))
-                    ],
-                  ),
-                ),
-                Container(
 
                   margin: EdgeInsets.symmetric(vertical: 10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        "Email:",
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      TextField(
-                          controller: emailController,
-                          obscureText: false,
-                          decoration: InputDecoration(
-                              border: InputBorder.none, filled: true))
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.symmetric(vertical: 10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        "Password :",
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      TextField(
 
-                          controller: passwordController,
-                          obscureText: true,  
-                          decoration: InputDecoration(
-                              border: InputBorder.none, filled: true))
-                    ],
+                  child: Form(
+                    key:_fKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          "Name:",
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        TextFormField(
+                            onFieldSubmitted: (value) {
+                              //Validator
+                            },
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'Enter a valid Name!';
+                              }
+                              return null;
+                            },
+                            controller: nameController,
+                            obscureText: false,
+                            decoration: InputDecoration(
+                                border: InputBorder.none, filled: true),),
+                        Text(
+                          "Password :",
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        TextFormField(
+                            onFieldSubmitted: (value) {
+                              //Validator
+                            },
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'Enter a valid password!';
+                              }
+                              return null;
+                            },
+
+                            controller: passwordController,
+                            obscureText: true,
+                            decoration: InputDecoration(
+                                border: InputBorder.none, filled: true),),
+                        Text(
+                          "Email:",
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        TextFormField(
+                            onFieldSubmitted: (value) {
+                              //Validator
+                            },
+                            validator:(String value) {
+                              if(value.isEmpty){
+                                return 'Email is required';
+                              }
+                              if(!RegExp("^[a-zA-Z0-9.!#%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*").hasMatch(value)){
+                                return 'Enter a valid email address';
+                              }
+                              return null;
+                            },
+                            controller: emailController,
+                            obscureText: false,
+                            decoration: InputDecoration(
+                                border: InputBorder.none, filled: true),),
+                        Text(
+
+                          "Surname",
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        TextFormField(
+                            onFieldSubmitted: (value) {
+                              //Validator
+                            },
+
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'Enter a valid Surname!';
+                              }
+                              return null;
+                            },
+                            controller: surnameController,
+
+                            obscureText: false,
+                            decoration: InputDecoration(
+                                border: InputBorder.none, filled: true))
+
+                      ],
+                    ),
                   ),
                 ),
                 RaisedButton(
                   color: Colors.red,
                   child: Text('Register'),
-                  onPressed: () {
+                  onPressed: () { _sbt();
+                   SharedPrefs.saveMail(emailController.text);
+                   SharedPrefs.savePassword(passwordController.text);
+                  SharedPrefs.saveName(nameController.text);
+                   SharedPrefs.saveSurName(surnameController.text);
+                   Navigator.push(
+                     context, MaterialPageRoute(builder: (context) {
+                     return Login();
+                   },),);
 
-                    if (SharedPrefs.saveMail(emailController.text) == null){
-
-                   return MaterialPageRoute(builder: (context){return Register();});
-                    }
-                    else {
-                      SharedPrefs.saveMail(emailController.text);
-                      SharedPrefs.savePassword(passwordController.text);
-                      SharedPrefs.saveName(nameController.text);
-                      SharedPrefs.saveSurName(surnameController.text);
-                      SharedPrefs.login();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return Login();
-                          },
-                        ),
-                      );
-                    }
-                    ;
                   } ),
               ],
             ),
@@ -137,3 +158,4 @@ class Register extends StatelessWidget {
     );
   }
 }
+
