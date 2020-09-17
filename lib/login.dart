@@ -8,6 +8,8 @@ import 'register.dart';
 var mailController = TextEditingController();
 var passController = TextEditingController();
 
+
+
 class Login extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
@@ -75,6 +77,19 @@ class Login extends StatelessWidget{
                         context,
                         MaterialPageRoute(builder: (context) => Homepage()));
                   }
+                  else{
+                    return AlertDialog(
+                            title: Text('Alert '),
+                      content: SingleChildScrollView(
+                        child: ListBody(
+                          children: <Widget>[
+                            Text('This is a demo alert dialog.'),
+                          ],
+                        ),
+                      )
+                    );
+                  }
+
 
                   // Navigator.push(context, MaterialPageRoute(builder: (context){
                   //  return Homepage();

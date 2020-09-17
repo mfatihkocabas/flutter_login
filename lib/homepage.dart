@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 
+
 class Homepage extends StatelessWidget {
 
 
@@ -16,8 +17,11 @@ class Homepage extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Center(
           child: Container(
-
-
+              child: Column(
+                children:<Widget> [
+                  Text('Hoşgeldiniz'),
+                ],
+              ),
           ),
         ),
       ),
