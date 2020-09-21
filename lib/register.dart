@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pathp1/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'SharedPre.dart';
+import 'postmodel.dart';
 
 SharedPreferences localStorage;
 
@@ -177,12 +177,43 @@ class Register extends StatelessWidget {
                           ],
                         ),
                       ),
-                      onPressed: () {
-                        _sbt();
-                        SharedPrefs.saveMail(emailController.text);
-                        SharedPrefs.savePassword(passwordController.text);
-                        SharedPrefs.saveName(nameController.text);
-                        SharedPrefs.saveSurName(surnameController.text);
+                      onPressed: () async{
+
+                          Post post = Post(
+                              email: emailController.text,
+                              nameSurname: nameController.text,
+                              password: passwordController.text,
+                          );
+                          createPost(post).then((response){
+                            if(response.statusCode > 200)
+                              print(response.body);
+                            else
+                              print(response.statusCode);
+                          }).catchError((error){
+                            print('error : $error');
+                          });
+
+
+
+
+
+
+
+                        /*
+                        if(_fKey.currentState.validate()) {
+                          var email = emailController.text;
+                          var password = passwordController.text;
+                          var nameSurname = nameController.text ;
+
+                          var response = await register(nameSurname, email,
+                              password);
+                          print(response);
+                        }
+                       // _sbt();
+                       // SharedPrefs.saveMail(emailController.text);
+                        //SharedPrefs.savePassword(passwordController.text);
+                        //SharedPrefs.saveName(nameController.text);
+                        //SharedPrefs.saveSurName(surnameController.text);
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -190,7 +221,7 @@ class Register extends StatelessWidget {
                               return Login();
                             },
                           ),
-                        );
+                        );*/
                       }),
                 ],
               ),
